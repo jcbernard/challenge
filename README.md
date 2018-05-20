@@ -30,6 +30,7 @@ Test
 ----
 
 J'ai regroupé dans le projet Postman differentes requêtes relatives aux 3 user stories pour tester l'authentication et authorization ainsi que les données postées ou reçues.
+/!\ Il faudra surement changer le path des requêtes pour correspondre au path de déploiement du WAR dans tomcat.
 L'intitulé des requêtes explicite la story testée (1, 1bis, 2, ...), les modalités du test (Admin do this, Guest do that, ...) ainsi que sont résultat attendu ([OK added item], [KO failed auth], ...).
 
 

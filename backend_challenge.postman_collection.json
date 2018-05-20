@@ -1,0 +1,552 @@
+{
+	"info": {
+		"_postman_id": "f14e27b1-0d8a-4adb-acf7-f9fe898b1e4a",
+		"name": "backend challenge",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "1 Admin adds one item [OK item added]",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "43af4608-b5f8-4f0b-9ea3-069062085481",
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"response is created\", function () {",
+							"    pm.response.to.have.status(201);",
+							"});"
+						]
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "changeit",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "admin",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"question\": \"Comment faire de la natation ?\",\n    \"lastName\": \"1.Mettre son maillot de bain 2.Aller dans l'eau 3.Agiter les bras et les jambes\",\n    \"tags\": \"Sport Natation\"\n}"
+				},
+				"url": {
+					"raw": "localhost:8080/backendchallenge-0.0.1/items",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"backendchallenge-0.0.1",
+						"items"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "1bis User adds one item [KO auth failed]",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "1134ad32-3e1b-43da-a90d-57bbc874f162",
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"response is forbidden\", function () {",
+							"    pm.response.to.have.status(403);",
+							"});"
+						]
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "username",
+							"value": "user",
+							"type": "string"
+						},
+						{
+							"key": "password",
+							"value": "changeit",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"question\": \"Comment faire de la natation ?\",\n    \"lastName\": \"1.Mettre son maillot de bain 2.Aller dans l'eau 3.Agiter les bras et les jambes\",\n    \"tags\": \"Sport Natation\"\n}"
+				},
+				"url": {
+					"raw": "localhost:8080/backendchallenge-0.0.1/items",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"backendchallenge-0.0.1",
+						"items"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "1ter Guest adds one item [KO auth failed]",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "13fb568a-63ad-438c-8900-a9b226c9046e",
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"response is unauthorised\", function () {",
+							"    pm.response.to.have.status(401);",
+							"});"
+						]
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"question\": \"Comment faire de la natation ?\",\n    \"lastName\": \"1.Mettre son maillot de bain 2.Aller dans l'eau 3.Agiter les bras et les jambes\",\n    \"tags\": \"Sport Natation\"\n}"
+				},
+				"url": {
+					"raw": "localhost:8080/backendchallenge-0.0.1/items",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"backendchallenge-0.0.1",
+						"items"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "2 Admin list all items [OK items listed]",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "7b952e43-47cc-4bef-9e7b-d7e6bbb690bb",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "e4803a8d-1291-4c8c-9b10-caf26676fce8",
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"response is ok\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						]
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "changeit",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "admin",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "localhost:8080/backendchallenge-0.0.1/items/",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"backendchallenge-0.0.1",
+						"items",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "2bis User list all items [KO auth failed]",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "7b952e43-47cc-4bef-9e7b-d7e6bbb690bb",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "f2495429-f9cf-4ba3-8b56-763d75d32782",
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"response is forbidden\", function () {",
+							"    pm.response.to.have.status(403);",
+							"});"
+						]
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "username",
+							"value": "user",
+							"type": "string"
+						},
+						{
+							"key": "password",
+							"value": "changeit",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "localhost:8080/backendchallenge-0.0.1/items/",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"backendchallenge-0.0.1",
+						"items",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "2ter Guest list all items [KO auth failed]",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "7b952e43-47cc-4bef-9e7b-d7e6bbb690bb",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "31927861-287f-48b3-963b-5f830faa0d6b",
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"response is unauthorised\", function () {",
+							"    pm.response.to.have.status(401);",
+							"});"
+						]
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "localhost:8080/backendchallenge-0.0.1/items/",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"backendchallenge-0.0.1",
+						"items",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "3 User searches text in items [OK text found in tags]",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "69a3062c-ab63-40a3-9817-2cf1a8fa6eb2",
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"response is ok\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						]
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "changeit",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "user",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "localhost:8080/backendchallenge-0.0.1/items/search/findByText?text=PoTaGeR",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"backendchallenge-0.0.1",
+						"items",
+						"search",
+						"findByText"
+					],
+					"query": [
+						{
+							"key": "text",
+							"value": "PoTaGeR"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "3bis User searches text in items [OK text found in answers]",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "43221634-1198-45ab-8e04-d86e33a52502",
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"response is ok\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						]
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "changeit",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "user",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "localhost:8080/backendchallenge-0.0.1/items/search/findByText?text=aTtEnDrE",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"backendchallenge-0.0.1",
+						"items",
+						"search",
+						"findByText"
+					],
+					"query": [
+						{
+							"key": "text",
+							"value": "aTtEnDrE"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "3ter User searches text in items [OK text found in questions]",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "d5c91d32-337b-4725-a868-1bd9ae8046f0",
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"response is ok\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						]
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "changeit",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "user",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "localhost:8080/backendchallenge-0.0.1/items/search/findByText?text=pOuSsEr",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"backendchallenge-0.0.1",
+						"items",
+						"search",
+						"findByText"
+					],
+					"query": [
+						{
+							"key": "text",
+							"value": "pOuSsEr"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "3quater Guest searches text of items [KO auth failed]",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "32ec1f22-f841-4718-94b5-295acac78101",
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"response is unauthorized\", function () {",
+							"    pm.response.to.have.status(401);",
+							"});"
+						]
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "localhost:8080/backendchallenge-0.0.1/items/search/findByText?text=PoTaGeR",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"backendchallenge-0.0.1",
+						"items",
+						"search",
+						"findByText"
+					],
+					"query": [
+						{
+							"key": "text",
+							"value": "PoTaGeR"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
